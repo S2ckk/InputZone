@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Страница не найдена</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --bg-light: #f5f5f5;
+            --text-dark: #ffffff;
+            --text-light: #333333;
+            --accent: #6e45e2;
+            --accent-hover: #8a65ec;
+            --card-bg-dark: #1e1e1e;
+            --card-bg-light: #ffffff;
+            --header-height: 70px;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
+        }
+        body.light-mode {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        /* Шапка */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--bg-dark);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.3s;
+			display: flex;
+            justify-content: center;
+			
+        }
+        .light-mode header {
+            background-color: var(--bg-light);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+        .light-mode .logo {
+            color: var(--text-light);
+        }
+        .logo-highlight {
+            color: var(--accent);
+        }
+        /* Мобильное меню */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .light-mode .menu-toggle {
+            color: var(--text-light);
+        }
+        /* Навигация */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+        .light-mode .nav-links a {
+            color: var(--text-light);
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: 15px;
+        }
+        .auth-button {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            border: 1px solid transparent;
+        }
+        .login-button {
+            background: transparent;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .login-button:hover {
+            background: rgba(110, 69, 226, 0.1);
+        }
+        .register-button {
+            background: var(--accent);
+            color: white;
+        }
+        .register-button:hover {
+            background: var(--accent-hover);
+        }
+        .theme-toggle {
+            background: transparent;
+            color: var(--text-dark);
+            border: none;
+            padding: 6px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+        .light-mode .theme-toggle {
+            color: var(--text-light);
+        }
+        .theme-toggle:hover {
+            background: rgba(110, 69, 226, 0.1);
+        }
+        /* Основной контент */
+        main {
+            min-height: calc(100vh - var(--header-height));
+            padding: calc(var(--header-height) + 40px) 0 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .error-code {
+            font-size: clamp(48px, 10vw, 100px);
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .error-title {
+            font-size: clamp(24px, 4vw, 32px);
+            margin-bottom: 20px;
+        }
+        .error-message {
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.8;
+        }
+        .back-button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .back-button:hover {
+            background: var(--accent-hover);
+        }
+        /* Футер */
+        footer {
+            background: #1a1a1a;
+            padding: 40px 0 20px;
+        }
+        .light-mode footer {
+            background: #e0e0e0;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .footer-column h3 {
+            margin: 0 0 15px;
+            font-size: 18px;
+        }
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        .footer-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            font-size: 14px;
+        }
+        .light-mode .footer-links a {
+            color: var(--text-light);
+        }
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+        .copyright {
+            text-align: center;
+            opacity: 0.7;
+            font-size: 13px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .light-mode .copyright {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        /* Мобильное меню */
+        .mobile-menu {
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            width: 100%;
+            background: var(--bg-dark);
+            padding: 20px;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+            z-index: 999;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .light-mode .mobile-menu {
+            background: var(--bg-light);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .mobile-menu .nav-links {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .mobile-menu .auth-buttons {
+            margin: 20px 0 0;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .mobile-menu .auth-button {
+            width: 100%;
+            padding: 10px;
+        }
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .nav-links a:not(.auth-button) {
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .auth-buttons {
+                display: none;
+            }
+        }
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 60px;
+            }
+            main {
+                padding: 80px 0 40px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css ">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <span class="logo-highlight">Input</span>Zone
+                </a>
+                <div class="nav-links">
+                    <a href="#">Главная</a>
+                    <a href="catalog.html">Каталог</a>
+                    <a href="about.html">О нас</a>
+                    <a href="cart.html">Корзина</a>
+                    <div class="auth-buttons">
+                        <button class="auth-button login-button" onclick="window.location.href='login.html'">Вход</button>
+                        <button class="auth-button register-button" onclick="window.location.href='register.html'">Регистрация</button>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                </div>
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="container">
+            <div class="nav-links">
+                <a href="#">Главная</a>
+                <a href="catalog.html">Каталог</a>
+                <a href="about.html">О нас</a>
+				<a href="cart.html">Корзина</a>
+                <div class="auth-buttons">
+                    <button class="auth-button login-button" onclick="window.location.href='login.html'">Вход</button>
+                    <button class="auth-button register-button" onclick="window.location.href='register.html'">Регистрация</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ошибка 404 -->
+    <main>
+        <div class="container">
+            <div class="error-code">404</div>
+            <div class="error-title">Страница не найдена</div>
+            <div class="error-message">
+                <p>К сожалению, данный товар недоступен.</p>
+                <p>Возможно, он был удален или временно недоступен.</p>
+            </div>
+            <a href="index.html" class="back-button">Вернуться на главную</a>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>InputZone</h3>
+                    <p>Твоя зона контроля в мире игровых девайсов.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Меню</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="cart.html">Корзина</a><li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul class="footer-links">
+                        <li><a href="404.html">Доставка и оплата</a></li>
+                        <li><a href="404.html">Гарантия</a></li>
+                        <li><a href="404.html">Возврат</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><a href="tel:+78001234567">8 (800) 123-45-67</a></li>
+                        <li><a href="mailto:info@inputzone.ru">info@inputzone.ru</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2025 InputZone. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Переключение темы
+        const themeToggle = document.getElementById("themeToggle");
+        const body = document.body;
+
+        themeToggle.addEventListener("click", () => {
+            body.classList.toggle("light-mode");
+            if (body.classList.contains("light-mode")) {
+                themeToggle.innerHTML = "<i class='fas fa-sun'></i>";
+                localStorage.setItem("theme", "light");
+            } else {
+                themeToggle.innerHTML = "<i class='fas fa-moon'></i>";
+                localStorage.setItem("theme", "dark");
+            }
+        });
+
+        if (localStorage.getItem("theme") === "light") {
+            body.classList.add("light-mode");
+            themeToggle.innerHTML = "<i class='fas fa-sun'></i>";
+        }
+
+        // Мобильное меню
+        const menuToggle = document.getElementById("menuToggle");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        menuToggle.addEventListener("click", () => {
+            mobileMenu.classList.toggle("active");
+            menuToggle.innerHTML = mobileMenu.classList.contains("active") ? "<i class='fas fa-times'></i>" : "<i class='fas fa-bars'></i>";
+        });
+
+        document.querySelectorAll(".mobile-menu a").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.remove("active");
+                menuToggle.innerHTML = "<i class='fas fa-bars'></i>";
+            });
+        });
+
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Фикс для высоты экрана (iOS)
+        function setViewportHeight() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        setViewportHeight();
+        window.addEventListener('resize', setViewportHeight);
+    </script>
+</body>
+</html>
